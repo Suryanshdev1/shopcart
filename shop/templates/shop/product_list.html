@@ -1,0 +1,42 @@
+{% extends 'shop/base.html' %}
+{% load humanize %}
+{% block title %}Products - ShopCart{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+        <h1 class="text-3xl font-bold mb-4 md:mb-0">All Products</h1>
+        <form method="get" class="flex space-x-2">
+            <input type="text" name="q" value="{{ query|default:'' }}" placeholder="Search products..." class="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            <button type="submit" class="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition"><i class="fas fa-search"></i></button>
+        </form>
+    </div>
+    <div class="flex flex-wrap gap-4 mb-8">
+        <a href="{% url 'shop:product_list' %}" class="px-4 py-2 rounded-full text-sm font-medium {% if not current_category %}bg-indigo-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} transition">All</a>
+        {% for cat in categories %}<a href="?category={{ cat.slug }}" class="px-4 py-2 rounded-full text-sm font-medium {% if current_category == cat.slug %}bg-indigo-600 text-white{% else %}bg-gray-200 text-gray-700 hover:bg-gray-300{% endif %} transition">{{ cat.name }}</a>{% endfor %}
+        <div class="ml-auto">
+            <select name="sort" onchange="window.location.href='?sort='+this.value{% if current_category %}+'&category={{ current_category }}'{% endif %}{% if query %}+'&q={{ query }}'{% endif %}" class="px-4 py-2 border border-gray-300 rounded-lg text-sm">
+                <option value="newest" {% if current_sort == 'newest' %}selected{% endif %}>Newest</option>
+                <option value="price_low" {% if current_sort == 'price_low' %}selected{% endif %}>Price: Low to High</option>
+                <option value="price_high" {% if current_sort == 'price_high' %}selected{% endif %}>Price: High to Low</option>
+                <option value="name" {% if current_sort == 'name' %}selected{% endif %}>Name</option>
+            </select>
+        </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for product in products %}
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden hover-lift border border-gray-100">
+            <a href="{{ product.get_absolute_url }}"><div class="h-48 bg-gray-200 flex items-center justify-center relative">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">{% else %}<i class="fas fa-image text-4xl text-gray-400"></i>{% endif %}{% if product.is_on_sale %}<span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">-{{ product.discount_percentage }}%</span>{% endif %}</div></a>
+            <div class="p-5">
+                <p class="text-xs text-indigo-600 font-semibold uppercase tracking-wide">{{ product.category.name }}</p>
+                <h3 class="font-semibold text-lg mt-1 mb-2 truncate">{{ product.name }}</h3>
+                <div class="flex items-center justify-between">
+                    <div><span class="text-xl font-bold text-gray-900">${{ product.price|intcomma }}</span>{% if product.old_price %}<span class="text-sm text-gray-400 line-through ml-2">${{ product.old_price|intcomma }}</span>{% endif %}</div>
+                    <form action="{% url 'shop:cart_add' product.id %}" method="post" class="inline">{% csrf_token %}<input type="hidden" name="quantity" value="1"><button type="submit" class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition"><i class="fas fa-plus"></i></button></form>
+                </div>
+            </div>
+        </div>
+        {% empty %}<div class="col-span-4 text-center py-20"><i class="fas fa-search text-5xl text-gray-300 mb-4"></i><p class="text-gray-500 text-lg">No products found.</p><a href="{% url 'shop:product_list' %}" class="text-indigo-600 hover:underline mt-2 inline-block">Clear filters</a></div>{% endfor %}
+    </div>
+    {% if products.has_other_pages %}<div class="flex justify-center mt-12 space-x-2">{% if products.has_previous %}<a href="?page={{ products.previous_page_number }}" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"><i class="fas fa-chevron-left"></i></a>{% endif %}<span class="px-4 py-2 bg-indigo-600 text-white rounded-lg">{{ products.number }}</span>{% if products.has_next %}<a href="?page={{ products.next_page_number }}" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50 transition"><i class="fas fa-chevron-right"></i></a>{% endif %}</div>{% endif %}
+</div>
+{% endblock %}

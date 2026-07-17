@@ -1,0 +1,22 @@
+{% extends 'shop/base.html' %}
+{% load humanize %}
+{% block title %}{{ category.name }} - ShopCart{% endblock %}
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="mb-8"><h1 class="text-3xl font-bold">{{ category.name }}</h1><p class="text-gray-600 mt-2">{{ category.description }}</p></div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        {% for product in products %}
+        <div class="bg-white rounded-2xl shadow-md overflow-hidden hover-lift border border-gray-100">
+            <a href="{{ product.get_absolute_url }}"><div class="h-48 bg-gray-200 flex items-center justify-center relative">{% if product.image %}<img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">{% else %}<i class="fas fa-image text-4xl text-gray-400"></i>{% endif %}{% if product.is_on_sale %}<span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">-{{ product.discount_percentage }}%</span>{% endif %}</div></a>
+            <div class="p-5"><h3 class="font-semibold text-lg mb-2 truncate">{{ product.name }}</h3>
+                <div class="flex items-center justify-between">
+                    <div><span class="text-xl font-bold text-gray-900">${{ product.price|intcomma }}</span>{% if product.old_price %}<span class="text-sm text-gray-400 line-through ml-2">${{ product.old_price|intcomma }}</span>{% endif %}</div>
+                    <form action="{% url 'shop:cart_add' product.id %}" method="post" class="inline">{% csrf_token %}<input type="hidden" name="quantity" value="1"><button type="submit" class="w-10 h-10 bg-indigo-600 text-white rounded-full flex items-center justify-center hover:bg-indigo-700 transition"><i class="fas fa-plus"></i></button></form>
+                </div>
+            </div>
+        </div>
+        {% empty %}<div class="col-span-4 text-center py-20 text-gray-500">No products in this category yet.</div>{% endfor %}
+    </div>
+    {% if products.has_other_pages %}<div class="flex justify-center mt-12 space-x-2">{% if products.has_previous %}<a href="?page={{ products.previous_page_number }}" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"><i class="fas fa-chevron-left"></i></a>{% endif %}<span class="px-4 py-2 bg-indigo-600 text-white rounded-lg">{{ products.number }}</span>{% if products.has_next %}<a href="?page={{ products.next_page_number }}" class="px-4 py-2 border border-gray-300 rounded-lg hover:bg-gray-50"><i class="fas fa-chevron-right"></i></a>{% endif %}</div>{% endif %}
+</div>
+{% endblock %}

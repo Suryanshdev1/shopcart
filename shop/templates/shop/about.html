@@ -1,0 +1,22 @@
+{% extends 'shop/base.html' %}
+{% block title %}About - ShopCart{% endblock %}
+{% block content %}
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+    <div class="text-center mb-16"><h1 class="text-4xl font-bold mb-4">About ShopCart</h1><p class="text-xl text-gray-600">A portfolio-quality Django e-commerce demo project</p></div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white rounded-2xl p-8 shadow-sm text-center border border-gray-100"><div class="w-16 h-16 bg-indigo-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-code text-2xl text-indigo-600"></i></div><h3 class="font-bold text-lg mb-2">Clean Architecture</h3><p class="text-gray-600 text-sm">Modular apps, reusable components, and Django best practices throughout.</p></div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm text-center border border-gray-100"><div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fas fa-shopping-cart text-2xl text-purple-600"></i></div><h3 class="font-bold text-lg mb-2">Session Cart</h3><p class="text-gray-600 text-sm">Persistent session-based shopping cart with database-backed storage.</p></div>
+        <div class="bg-white rounded-2xl p-8 shadow-sm text-center border border-gray-100"><div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"><i class="fab fa-docker text-2xl text-green-600"></i></div><h3 class="font-bold text-lg mb-2">Docker Ready</h3><p class="text-gray-600 text-sm">Complete containerization with Dockerfile and docker-compose.yml.</p></div>
+    </div>
+    <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+        <h2 class="text-2xl font-bold mb-4">Project Objectives</h2>
+        <ul class="space-y-3 text-gray-600">
+            <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> Demonstrate professional Django development skills</li>
+            <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> Implement session-based shopping cart functionality</li>
+            <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> Create modern, responsive UI with Tailwind CSS</li>
+            <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> Containerize with Docker for deployment readiness</li>
+            <li class="flex items-start"><i class="fas fa-check text-green-500 mt-1 mr-3"></i> Document thoroughly for portfolio presentation</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}
