@@ -2,6 +2,8 @@
 
 A production-inspired Django e-commerce demo built with clean architecture, modern UI, and Docker support.
 
+Live Link : https://suryanshdev1.pythonanywhere.com/
+
 ![Django](https://img.shields.io/badge/Django-5.0-green)
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Tailwind](https://img.shields.io/badge/Tailwind-CDN-06B6D4)
