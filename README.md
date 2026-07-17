@@ -45,19 +45,6 @@
 
 ---
 
-## 📸 Screenshots
-
-### Homepage
-![Homepage](https://via.placeholder.com/800x400/667eea/ffffff?text=Homepage+Hero+Section)
-
-### Product Listing
-![Products](https://via.placeholder.com/800x400/764ba2/ffffff?text=Product+Catalog+with+Filters)
-
-### Shopping Cart
-![Cart](https://via.placeholder.com/800x400/4f46e5/ffffff?text=Shopping+Cart+with+Order+Summary)
-
----
-
 ## 🚀 Quick Start (Local Development)
 
 ### Prerequisites
@@ -341,7 +328,6 @@ MIT License — Free for personal and commercial use.
 
 - **Live Website:** [https://suryanshdev1.pythonanywhere.com/](https://suryanshdev1.pythonanywhere.com/)
 - **GitHub:** [github.com/yourusername/shopcart](https://github.com/yourusername/shopcart)
-- **LinkedIn:** [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
 
 ---
 
